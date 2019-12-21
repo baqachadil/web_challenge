@@ -1,5 +1,6 @@
 package com.example.demo;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,9 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.demo.Entities.AppRole;
 import com.example.demo.Entities.AppUser;
 import com.example.demo.Entities.Shop;
-import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.ShopRepository;
-import com.example.demo.services.UserService;
 import com.example.demo.services.UserServiceImpl;
 
 @SpringBootApplication
@@ -48,10 +47,10 @@ public class WebChallengeBackEndApplication implements CommandLineRunner {
 		
 		userService.addRoleToUser("baqachadil@gmail.com", "USER");
 		
-		shopRepository.save(new Shop("shop1","img1",13.23,7.515,null));
-		shopRepository.save(new Shop("shop2","img2",13.23,7.515,null));
-		shopRepository.save(new Shop("shop3","img3",13.23,7.515,null));
-		shopRepository.save(new Shop("shop4","img4",13.23,7.515,null));
+		shopRepository.save(new Shop("shop1","img1",null,null,null,13.23,7.515,null));
+		shopRepository.save(new Shop("shop2","img2",null,null,null,13.23,7.515,null));
+		shopRepository.save(new Shop("shop3","img3",null,null,null,13.23,7.515,null));
+		shopRepository.save(new Shop("shop4","img4",null,null,null,13.23,7.515,null));
 	}
 
 }

@@ -2,7 +2,7 @@ package com.example.demo.Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 @Entity
 @Table(name="User")
 public class AppUser implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long Id;
 	@Column(unique=true)
@@ -23,31 +24,39 @@ public class AppUser implements Serializable {
 	private double longitude;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Collection<AppRole> roles = new ArrayList<AppRole>();
+	private List<AppRole> roles = new ArrayList<AppRole>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Collection<UserShop> likes;		
+	private List<UserShop> userShops;		
 	
 	public AppUser() {
 		super();
 	}
 
-	public AppUser(String username, String password, double latitude, double longitude, Collection<UserShop> likes) {
+	public AppUser(String username, String password, double latitude, double longitude, List<UserShop> userShops) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.likes = likes;
+		this.userShops = userShops;
 	}
 
 	
 
-	public Collection<AppRole> getRoles() {
+	public Long getId() {
+		return Id;
+	}
+
+	public void setId(Long id) {
+		Id = id;
+	}
+
+	public List<AppRole> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Collection<AppRole> roles) {
+	public void setRoles(List<AppRole> roles) {
 		this.roles = roles;
 	}
 
@@ -86,13 +95,15 @@ public class AppUser implements Serializable {
 		this.longitude = longitude;
 	}
 
-	public Collection<UserShop> getUsers() {
-		return likes;
+	public List<UserShop> getuserShops() {
+		return userShops;
 	}
 
-	public void setUsers(Collection<UserShop> likes) {
-		this.likes = likes;
+	public void setuserShops(List<UserShop> userShops) {
+		this.userShops = userShops;
 	}
+
+	
 	
 	
 }

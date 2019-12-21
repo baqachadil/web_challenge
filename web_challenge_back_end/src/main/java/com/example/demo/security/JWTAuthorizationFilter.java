@@ -16,15 +16,30 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
-//Checking if the token is valid before eache request to our server
+//Checking if the token is valid before each request to our server
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		
+		//Asking the server for permission to send requests from another domain (front-end)
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		
+		//The headers that are permitted to be in a request sent by the client
+		response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, Content-Type, "
+				+ "Access-Control-Request-Method, Access-Control-Request-Headers,Authorization");
+		
+		//The headers that are allowed to expose in the request sent by the server
+		response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
+		
+		//Do not activate security if the method of the request is OPTIONS
+		if(request.getMethod().equals("OPTIONS")) response.setStatus(HttpServletResponse.SC_OK);
 		
 		//getting the jwt token
 		String jwt = request.getHeader(SecurityConstants.HEADER);

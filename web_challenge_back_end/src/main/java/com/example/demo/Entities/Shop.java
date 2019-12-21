@@ -5,9 +5,13 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="Shop")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Shop implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	private String name;
@@ -17,6 +21,7 @@ public class Shop implements Serializable {
 	private String description;
 	private double latitude;
 	private double longitude;
+	private double distance;
 	
 	@OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
 	private Set<UserShop> likes;
@@ -25,14 +30,58 @@ public class Shop implements Serializable {
 		super();
 	}
 
-	public Shop(String name, String image, double latitude, double longitude, Set<UserShop> likes) {
+	
+
+	public Shop(String name, String image, String phone, String address, String description, double latitude,
+			double longitude, Set<UserShop> likes) {
 		super();
 		this.name = name;
 		this.image = image;
+		this.phone = phone;
+		this.address = address;
+		this.description = description;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.likes = likes;
 	}
+
+	
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
 
 	public String getName() {
 		return name;
@@ -72,6 +121,18 @@ public class Shop implements Serializable {
 
 	public void setLikes(Set<UserShop> likes) {
 		this.likes = likes;
+	}
+
+
+
+	public double getDistance() {
+		return distance;
+	}
+
+
+
+	public void setDistance(double distance) {
+		this.distance = distance;
 	}
 	
 	

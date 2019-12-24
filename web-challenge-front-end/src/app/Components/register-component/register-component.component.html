@@ -1,0 +1,31 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 class="active"> Sign Up </h2>
+      <!-- Login Form -->                
+      <form  #f="ngForm" (ngSubmit)="onSubmit(username.value, pass.value)">
+        <input type="text" #username="ngModel" id="username" class="form-control fadeIn second" name="username" placeholder="username" ngModel required email>
+        <p style="color: red" *ngIf="username.touched && username.errors?.required">
+            This field is required !!!
+        </p>
+        <p style="color: red" *ngIf="username.touched && username.errors?.email">
+            You have to write a valid email !!!
+        </p>
+        <input #pass="ngModel" type="password" id="password" class="form-control fadeIn third" name="pass" placeholder="password" ngModel required minlength="7">
+        <p style="color: red" *ngIf="pass.touched && pass.errors?.required">
+            This field is required !!!
+        </p>
+        <p style="color: red" *ngIf="pass.touched && pass.errors?.minlength">
+                You have to enter at least 7 caracters !!!
+            </p>
+        <input #confpass="ngModel" type="password" id="confpassword" class="form-control fadeIn third" name="confpass" placeholder="confirm password" ngModel required>
+        <p style="color: red" *ngIf="confpass.touched && confpass.errors?.required">
+            This field is required !!!
+        </p>
+        <p style="color: red" *ngIf="confpass.touched && confpass.value != pass.value">
+                You have to enter the same password !!!
+        </p>                        
+        <input [disabled]="f.invalid || confpass.value != pass.value"  type="submit" class="fadeIn fourth" value="Sign Up">        
+      </form>
+    </div>
+  </div>

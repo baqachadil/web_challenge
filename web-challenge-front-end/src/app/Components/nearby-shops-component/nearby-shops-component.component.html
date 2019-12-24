@@ -1,0 +1,52 @@
+<ngb-carousel  *ngIf="images">
+    <ng-template ngbSlide>
+      <img [src]="images[0]" class="car_img" alt="Random first slide">
+    </ng-template>
+    <ng-template ngbSlide>
+      <img [src]="images[1]" class="car_img" alt="Random first slide">
+    </ng-template>
+</ngb-carousel>
+<div class="container">
+    <div id="shops" class="row">
+        <div *ngFor="let shop of shops;index as i" style="margin-top: 2%;" class="col-md-3">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front card">
+                        <img style="height: 230px" [src]="shop.image" class="card-img-top" >                
+                        <div class="card-body" >
+                            <h4 class="card-title">{{shop.name | titlecase}}</h4>                                  
+                            <div style="height: 50px; overflow-y: hidden">
+                                <span class="card-text">{{shop.description}}</span>
+                            </div>                            
+                        </div>
+                  </div>
+                  <div class="flip-card-back card">  
+                    <img [src]="shop.image" id="backimg" alt="">           
+                        <div class="card-body" >
+                            <h5 class="card-title">{{shop.name | titlecase}}</h5>                                  
+                            <div style="height: 50px; overflow-y: hidden">
+                                <span class="card-text">{{shop.description}}</span>
+                            </div>
+                            <div style="margin-top: 4%" class="row">
+                              <span>Phone number : {{shop.phone}}</span>
+                            </div>
+                            <div style="margin-top: 2%" class="row">
+                              <span>Address : {{shop.address}}</span>
+                            </div>
+                            <div class="row" style="margin-top: 50%;">
+                                <div class="col-md-6">
+                                    <button (click)="like(i)" type="button" style="border: none; background: none; outline: 0;" ><mat-icon id="thumbs" svgIcon="thumb-up"></mat-icon></button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button (click)="dislike(i)" type="button" style="border: none; background: none; outline: 0;"><mat-icon id="thumbs" svgIcon="thumb-down"></mat-icon></button>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+                </div>
+              </div> 
+            
+            
+        </div>                   
+    </div>
+</div>

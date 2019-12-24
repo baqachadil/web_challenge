@@ -1,0 +1,26 @@
+.navbar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;    
+    background-color:  #563d7c; 
+    height: 80px;
+}
+.navbar a{
+    color: white;
+}
+#navbarDropdown{
+    cursor: pointer;
+}
+li{
+    font-size: 17px;
+    margin-left: 20px;
+}
+.navbar-brand{
+    margin-left: 5%;
+}
+#login{
+    position: absolute;   
+    right: 10%
+}

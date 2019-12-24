@@ -1,0 +1,46 @@
+<div class="container">
+    <div *ngIf="preferredShops.length==0" class="alert alert-primary" role="alert">
+        There is no Preferred shops yet, Plead add some<mat-icon style="margin-left: 2%;" id="thumbs" svgIcon="thumb-up"></mat-icon>
+      </div>
+</div>
+<div *ngIf="preferredShops.length!=0" class="container">
+    <h4>Your Preferred Shops :</h4>
+    <div id="shops" class="row">
+        <div *ngFor="let shop of preferredShops;index as i" style="margin-top: 2%;" class="col-md-3">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front card">
+                        <img style="height: 230px" [src]="shop.image" class="card-img-top" >                
+                        <div class="card-body" >
+                            <h4 class="card-title">{{shop.name | titlecase}}</h4>                                  
+                            <div style="height: 50px; overflow-y: hidden">
+                                <span class="card-text">{{shop.description}}</span>
+                            </div>                            
+                        </div>
+                  </div>
+                  <div class="flip-card-back card">  
+                    <img [src]="shop.image" id="backimg" alt="">           
+                        <div class="card-body" >
+                            <h5 class="card-title">{{shop.name | titlecase}}</h5>                                  
+                            <div style="height: 50px; overflow-y: hidden">
+                                <span class="card-text">{{shop.description}}</span>
+                            </div>
+                            <div style="margin-top: 4%" class="row">
+                              <span>Phone number : {{shop.phone}}</span>
+                            </div>
+                            <div style="margin-top: 2%" class="row">
+                              <span>Address : {{shop.address}}</span>
+                            </div>
+                            <div class="row" style="margin-top: 50%;">
+                                    <button (click)="delete(i)" type="button" style="border: none; background: none; outline: 0; margin: auto;" ><mat-icon id="thumbs" svgIcon="delete">delete</mat-icon></button>
+                             
+                            </div>
+                        </div>
+                  </div>
+                </div>
+              </div> 
+            
+            
+        </div>                   
+    </div>
+</div>

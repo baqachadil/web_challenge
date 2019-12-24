@@ -1,0 +1,22 @@
+<nav *ngIf="isLogin" class="navbar navbar-expand-lg " >
+
+        <a class="navbar-brand" routerLink="/">
+          <mat-icon id="thumbs" svgIcon="shop-logo" style="width: 70px; height: 70px;"></mat-icon>
+          <span>NearbyShops</span>
+        </a>
+      
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a *ngIf="isAdmin" routerLink="/" routerLinkActive="active" class="nav-link">Panel</a>
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/nearBy" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/preferred" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Preferred Shops</a>
+            </li>        
+            <li  id="login" class="nav-item ">
+                <button class="form-control btn btn-light" (click)="logOut()">Logout</button>
+            </li>
+          </ul>
+      </nav>

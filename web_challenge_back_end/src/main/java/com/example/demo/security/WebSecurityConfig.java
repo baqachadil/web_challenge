@@ -32,8 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		
+		//We use the JWTAuthorization filter that we created
+		http.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+		
 		//the register API is accessible without authentication
-		http.authorizeRequests().antMatchers("/register").permitAll();
+		http.authorizeRequests().antMatchers("/register", "/login").permitAll();
 		
 		//Don't let users adding shops to the DB unless they have the role ADMIN
 		http.authorizeRequests().antMatchers(HttpMethod.POST,"/shops/**").hasAuthority("ADMIN");
@@ -46,9 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		//We use the JWTAuthentication filter that we created
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager()));
-		
-		//We use the JWTAuthorization filter that we created
-		http.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+				
 	}
 	
 }

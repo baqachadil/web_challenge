@@ -14,9 +14,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -32,18 +32,24 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		
 		//The headers that are permitted to be in a request sent by the client
-		response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, Content-Type, "
-				+ "Access-Control-Request-Method, Access-Control-Request-Headers,Authorization");
+		response.addHeader("Access-Control-Allow-Headers",
+				"Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,"
+						+ "Access-Control-Request-Headers, authorization");
+		
+		response.addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+		response.addHeader("Access-Control-Allow-Credentials", "true");
 		
 		//The headers that are allowed to expose in the request sent by the server
-		response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
+		response.addHeader("Access-Control-Expose-Headers",
+				"Access-Control-Allow-Origin, Access-Control-Allow-Credentials, authorization");
 		
 		//Do not activate security if the method of the request is OPTIONS
 		if(request.getMethod().equals("OPTIONS")) response.setStatus(HttpServletResponse.SC_OK);
-		
+		else {
 		//getting the jwt token
 		String jwt = request.getHeader(SecurityConstants.HEADER);
 		System.out.println(jwt);
+		
 		if(jwt==null || !jwt.startsWith(SecurityConstants.TOKEN_PREFIX)) {
 			filterChain.doFilter(request, response); return;
 		}
@@ -65,6 +71,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 		UsernamePasswordAuthenticationToken authenticatedUser = new UsernamePasswordAuthenticationToken(username, null, authoroties);
 		SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
 		filterChain.doFilter(request, response);
+	}
 	}
 
 }

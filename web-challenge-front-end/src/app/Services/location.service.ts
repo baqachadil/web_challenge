@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  serverlink = "http://localhost:8080"
 
   getPosition(): Promise<any>
   {
@@ -20,5 +24,11 @@ export class LocationService {
         });
     });
 
+  }
+
+  setPosition(lat, lon):Observable<any>{
+    let jwtToken = localStorage.getItem("JwtToken")
+    console.log(jwtToken)
+    return this.httpClient.post(this.serverlink+"/setLocation?lat="+lat+"&lon="+lon,null, {headers : new HttpHeaders({'authorization':jwtToken, 'Content-Type':'application/json'})})
   }
 }

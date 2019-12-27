@@ -3,6 +3,7 @@ import { AuthenticationServiceService } from 'src/app/Services/authentication-se
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { LocationService } from 'src/app/Services/location.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login-component',
@@ -12,7 +13,9 @@ import { LocationService } from 'src/app/Services/location.service';
 export class LoginComponentComponent implements OnInit {
 
   loading = false
-  constructor(private authenticationService: AuthenticationServiceService, private router: Router, private locationService: LocationService) { }
+  constructor(private authenticationService: AuthenticationServiceService, private router: Router, private locationService: LocationService, private title: Title) {
+    this.title.setTitle("Login")
+   }
   
   ngOnInit() {
     if(localStorage.getItem('JwtToken')) this.router.navigate(['/nearBy'])
@@ -25,7 +28,7 @@ export class LoginComponentComponent implements OnInit {
         this.loading = true
         this.locationService.getPosition().then(pos=>
           {
-             console.log(`Positon: ${pos.lng} ${pos.lat}`);
+             console.log(`Positon: ${pos.lng} ${pos.lat}`);             
              Swal.fire({
               position: 'top-end',
               icon: 'success',
@@ -35,6 +38,7 @@ export class LoginComponentComponent implements OnInit {
             })
             let jwtToken = res.headers.get('Authorization')
             this.authenticationService.saveToken(jwtToken)
+            this.locationService.setPosition(pos.lat, pos.lng).subscribe()
             this.router.navigate(['/nearBy'])
           });        
       },

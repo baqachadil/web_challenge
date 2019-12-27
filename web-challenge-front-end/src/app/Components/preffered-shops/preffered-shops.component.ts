@@ -2,7 +2,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { AuthenticationServiceService } from 'src/app/Services/authentication-service.service';
 import { Router } from '@angular/router';
 import { MatIconRegistry } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-preffered-shops',
@@ -13,7 +13,8 @@ export class PrefferedShopsComponent implements OnInit, DoCheck {
 
 
   preferredShops
-  constructor(private authenticationService: AuthenticationServiceService, private router: Router, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
+  constructor(private authenticationService: AuthenticationServiceService, private router: Router, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer, private title: Title) {
+    this.title.setTitle("Preferred Shops")
     iconRegistry.addSvgIcon(
       'thumb-up',
       sanitizer.bypassSecurityTrustResourceUrl('assets/smiling.svg'));

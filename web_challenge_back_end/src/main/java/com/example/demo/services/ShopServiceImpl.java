@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +71,23 @@ public class ShopServiceImpl implements ShopService {
 					break;
 				}				
 			}
-			if(out_cdt==0)ShopsToShowInHome.add(s);
+			if(out_cdt==0)ShopsToShowInHome.add(s);					
 		}
 		
+		//sorting by the nearest
+		Collections.sort(ShopsToShowInHome);
+		
 		return ShopsToShowInHome;
+	}
+	
+	public List<Shop> getPreferredShops(String username){
+		AppUser user = userRepository.findByUsername(username);
+		return usershopRepository.findPreferredShops(user.getId());
+	}
+
+	@Override
+	public Shop AddShop(Shop shop) {
+		return shopRepository.save(shop);
 	}
 
 }

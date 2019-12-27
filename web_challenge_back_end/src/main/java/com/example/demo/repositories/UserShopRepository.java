@@ -18,4 +18,7 @@ public interface UserShopRepository extends JpaRepository<UserShop, Long> {
 	
 	@Query("select s.shop from UserShop s where s.user.id=?1")
 	public List<Shop> findUserShops(Long user_id);
+	
+	@Query("select s.shop from UserShop s where s.user.id=?1 and s.liked=1")
+	public List<Shop> findPreferredShops(Long user_id);
 }

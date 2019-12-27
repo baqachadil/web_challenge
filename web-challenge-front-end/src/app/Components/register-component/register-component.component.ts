@@ -3,6 +3,7 @@ import { User } from 'src/app/Interfaces/User';
 import { AuthenticationServiceService } from 'src/app/Services/authentication-service.service';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-register-component',
   templateUrl: './register-component.component.html',
@@ -10,7 +11,9 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponentComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationServiceService, private router: Router) { }
+  constructor(private authenticationService: AuthenticationServiceService, private router: Router,private title: Title) {
+    this.title.setTitle("Register")
+   }
 
   ngOnInit() {
   }

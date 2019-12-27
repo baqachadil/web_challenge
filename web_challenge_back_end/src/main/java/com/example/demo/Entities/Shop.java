@@ -5,12 +5,13 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="Shop")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Shop implements Serializable {
+public class Shop implements Serializable, Comparable<Shop> {
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
@@ -24,6 +25,7 @@ public class Shop implements Serializable {
 	private double distance;
 	
 	@OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<UserShop> likes;
 	
 	public Shop() {
@@ -46,6 +48,18 @@ public class Shop implements Serializable {
 	}
 
 	
+
+	public Long getId() {
+		return Id;
+	}
+
+
+
+	public void setId(Long id) {
+		Id = id;
+	}
+
+
 
 	public String getPhone() {
 		return phone;
@@ -133,6 +147,14 @@ public class Shop implements Serializable {
 
 	public void setDistance(double distance) {
 		this.distance = distance;
+	}
+
+
+	//for sorting
+	@Override
+	public int compareTo(Shop shop) {
+		return (this.getDistance() < shop.getDistance() ? -1 : 
+            (this.getDistance() == shop.getDistance() ? 0 : 1));     
 	}
 	
 	

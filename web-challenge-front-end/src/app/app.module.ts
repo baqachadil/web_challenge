@@ -14,6 +14,7 @@ import { MatCardModule, MatButtonModule, MatIconModule } from '@angular/material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './Components/footer/footer.component';
 import { PrefferedShopsComponent } from './Components/preffered-shops/preffered-shops.component';
+import { PanelComponent } from './Components/panel/panel.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PrefferedShopsComponent } from './Components/preffered-shops/preffered-
     NavBarComponent,
     NearbyShopsComponentComponent,
     FooterComponent,
-    PrefferedShopsComponent
+    PrefferedShopsComponent,
+    PanelComponent,
   ],
   imports: [
     BrowserModule,

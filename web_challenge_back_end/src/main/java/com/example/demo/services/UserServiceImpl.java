@@ -1,11 +1,7 @@
 package com.example.demo.services;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
-import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,8 +39,8 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public AppUser AddUSer(AppUser user) {		
 		//We crypt the user's password
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		return userRepository.save(user);
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));		
+		return userRepository.save(user);		
 	}
 
 	@Override

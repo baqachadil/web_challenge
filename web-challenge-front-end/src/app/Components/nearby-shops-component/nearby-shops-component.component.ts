@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationServiceService } from 'src/app/Services/authentication-service.service';
 import { Router } from '@angular/router';
 import { MatIconRegistry } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-nearby-shops-component',
@@ -13,7 +13,8 @@ export class NearbyShopsComponentComponent implements OnInit {
 
   shops
   images = new Array("https://i.ibb.co/n33YdTt/Untitled-2.png","https://i.ibb.co/r2YdPr0/Untitled-1.png");
-  constructor(private authenticationService: AuthenticationServiceService, private router: Router,iconRegistry: MatIconRegistry, private sanitizer : DomSanitizer) {
+  constructor(private title: Title,private authenticationService: AuthenticationServiceService, private router: Router,iconRegistry: MatIconRegistry, private sanitizer : DomSanitizer) {
+    title.setTitle("NearBy Shops")
     iconRegistry.addSvgIcon(
       'thumb-up',
       sanitizer.bypassSecurityTrustResourceUrl('assets/thumb-up.svg'));
@@ -24,7 +25,7 @@ export class NearbyShopsComponentComponent implements OnInit {
 
   ngOnInit() {
     if(this.authenticationService.getToken() != null){
-      this.authenticationService.getNearbyShops().subscribe(res=>{        
+      this.authenticationService.getNearbyShops().subscribe(res=>{   
         this.shops=res
       },err=>{
         console.log(err)

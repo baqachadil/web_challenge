@@ -26,7 +26,7 @@
 <ul>
     <li>In the front : I used Angular 8</li>
     <li>In the back : I used Spring boot</li>
-    <li>For the login: I used Spring Security and Json Web Token (JWT)</li>    
+    <li>For the authentication: I used Spring Security and Json Web Token (JWT)</li>    
    <img src="https://i.ibb.co/gtGJ7NN/tt.png"> 
 </ul>
 
